@@ -20,10 +20,10 @@ const StyledTableCell = withStyles((theme) => ({
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
   },
-  body: {
-    fontSize: 16,
-  },
-}))(TableCell);
+  body: (props) => ({
+    fontSize: props.fontSize || 20,
+  }),
+}))((props) => <TableCell {...props} />);
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
@@ -93,14 +93,14 @@ export default function Home() {
               <StyledTableRow key={rowIdx}>
                 {
                   row.map((cell, cellIdx) => (
-                    cellIdx === row.length-1 ?
+                    cellIdx >= row.length-tashrif.metadata.numOfKey[rowIdx] ?
                     <StyledTableCell align="center">
                       {/* this is used for showing, not quiz*/}
                       <Box display="flex" justifyContent="center">
                         {
                           cell.length === 0 ?
-                          <StyledTableCell align="center">-</StyledTableCell> :
-                          cell.map((subcell, subcellIdx) => (
+                          <StyledTableCell fontSize={35} align="center">—</StyledTableCell> :
+                          cell.map((subcell) => (
                             <StyledTableCell align="center">{subcell}</StyledTableCell>
                           ))
                           
@@ -112,10 +112,11 @@ export default function Home() {
                       <Box display="flex" justifyContent="center">
                         {
                           cell.length === 0 ?
-                          <StyledTableCell align="center">-</StyledTableCell> :
+                          <StyledTableCell fontSize={35} align="center">—</StyledTableCell> :
                           cell.map((subcell, subcellIdx) => (
                             <StyledTableCell  align="center">
                               <TextField id="standard-basic" label="الجواب" onChange={(e) => inputText(`${rowIdx},${cellIdx},${subcellIdx}`, e.target.value, subcell)} />
+                              <br/>
                               {answerStatus.hasOwnProperty(`${rowIdx},${cellIdx},${subcellIdx}`)?answerStatus[`${rowIdx},${cellIdx},${subcellIdx}`]:answerStatusEnum.EMPTY}
                             </StyledTableCell>
                           ))
