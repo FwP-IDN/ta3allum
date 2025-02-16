@@ -77,12 +77,12 @@ export default function Home() {
 
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="customized table">
+      <Table stickyHeader={true} className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
             {
               tashrif.columns.map((column) => (
-                <StyledTableCell align="center">{column}</StyledTableCell>
+                <StyledTableCell fontSize={100} align="center">{column}</StyledTableCell>
               ))
             }
           </TableRow>
