@@ -115,7 +115,7 @@ export default function Home() {
                           <StyledTableCell fontSize={35} align="center">—</StyledTableCell> :
                           cell.map((subcell, subcellIdx) => (
                             <StyledTableCell  align="center">
-                              <TextField id="standard-basic" label="الجواب" onChange={(e) => inputText(`${rowIdx},${cellIdx},${subcellIdx}`, e.target.value, subcell)} />
+                              <TextField id="standard-basic" label="الجواب" onBlur={(e) => inputText(`${rowIdx},${cellIdx},${subcellIdx}`, e.target.value, subcell)} />
                               <br/>
                               {answerStatus.hasOwnProperty(`${rowIdx},${cellIdx},${subcellIdx}`)?answerStatus[`${rowIdx},${cellIdx},${subcellIdx}`]:answerStatusEnum.EMPTY}
                             </StyledTableCell>
