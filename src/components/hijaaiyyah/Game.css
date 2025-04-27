@@ -1,0 +1,31 @@
+.board-table {
+  height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.again-or-reset-button {
+  display: flex;
+  height: 60px;
+}
+
+.again-or-reset-button button {
+  margin: 10px;
+}
+
+.board-row {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 32px;
+}
+
+.board-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.play-or-lose {
+  font-size: xx-large;
+}

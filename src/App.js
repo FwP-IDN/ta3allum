@@ -1,5 +1,7 @@
 import React from "react";
 import Home from "./components/Home";
+import Shorf from "./components/shorf/Shorf";
+import Hijaaiyyah from "./components/hijaaiyyah/Hijaaiyyah";
 import { makeStyles } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { AppBar, Toolbar, Typography, Link } from "@material-ui/core";
@@ -38,6 +40,8 @@ export default function App() {
             renders the first one that matches the current URL. */}
       <Switch>
         <Route path="/" exact component={Home} />
+        <Route path="/shorf" exact component={Shorf} />
+        <Route path="/hijaaiyyah" exact component={Hijaaiyyah} />
         {/* add more route */}
       </Switch>
     </Router>
