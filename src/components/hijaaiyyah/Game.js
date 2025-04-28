@@ -98,42 +98,49 @@ const Game = (props) => {
   useEffect(() => {}, []);
 
   return (
-    <TableContainer component={Paper}>
-      <Table stickyHeader={true} className={classes.table} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell fontSize={100} align="center">Question</StyledTableCell>
-            <StyledTableCell fontSize={100} align="center">Status</StyledTableCell>
-            <StyledTableCell fontSize={100} align="center">Options</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {
-            props.quizzes.map((row, rowIdx) => (
-              <StyledTableRow key={rowIdx}>
-                <StyledTableCell align="center">{row.question}</StyledTableCell>
-                <StyledTableCell align="center">{gameState.answers[rowIdx].status}</StyledTableCell>
-                <StyledTableCell align="center">
-                  <RadioGroup
-                    aria-label="firstTurn"
-                    name="firstTurn"
-                    onChange={e => handleChooseAnswer(rowIdx, e.target.value)}
-                    value={gameState.answers[rowIdx].chosenOption}
-                  >
-                    {
-                      row.options.map(
-                        option => <FormControlLabel value={option} control={<Radio />} label={option} />
-                      )
-                    }
-                    
-                  </RadioGroup>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))
-          }
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <div>
+      <TableContainer component={Paper}>
+        <Table stickyHeader={true} className={classes.table} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell fontSize={100} align="center">Question</StyledTableCell>
+              <StyledTableCell fontSize={100} align="center">Status</StyledTableCell>
+              <StyledTableCell fontSize={100} align="center">Options</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {
+              props.quizzes.map((row, rowIdx) => (
+                <StyledTableRow key={rowIdx}>
+                  <StyledTableCell align="center">{row.question}</StyledTableCell>
+                  <StyledTableCell align="center">{gameState.answers[rowIdx].status}</StyledTableCell>
+                  <StyledTableCell align="center">
+                    <RadioGroup
+                      aria-label="firstTurn"
+                      name="firstTurn"
+                      onChange={e => handleChooseAnswer(rowIdx, e.target.value)}
+                      value={gameState.answers[rowIdx].chosenOption}
+                    >
+                      {
+                        row.options.map(
+                          option => <FormControlLabel value={option} control={<Radio />} label={option} />
+                        )
+                      }
+                      
+                    </RadioGroup>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))
+            }
+          </TableBody>
+        </Table>
+      </TableContainer>
+      data source: <a
+        href="https://www.kaggle.com/datasets/jabirmuktabir/hijaiyah-fathah-dataset"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Jabir Muktabir's Kaggle</a>
+    </div>
   );
 };
 
