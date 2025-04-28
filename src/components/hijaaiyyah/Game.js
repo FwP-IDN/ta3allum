@@ -112,7 +112,12 @@ const Game = (props) => {
             {
               props.quizzes.map((row, rowIdx) => (
                 <StyledTableRow key={rowIdx}>
-                  <StyledTableCell align="center">{row.question}</StyledTableCell>
+                  <StyledTableCell align="center">
+                    <audio controls>
+                      <source src={`/audio/${row.question}`} type="audio/mp3" />
+                      Your browser does not support the audio element.
+                    </audio>
+                  </StyledTableCell>
                   <StyledTableCell align="center">{gameState.answers[rowIdx].status}</StyledTableCell>
                   <StyledTableCell align="center">
                     <RadioGroup
