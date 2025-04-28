@@ -1,5 +1,5 @@
 import React, { 
-  // useState,
+  useState,
   useEffect } from "react";
 import PropTypes from "prop-types";
 import Radio from "@material-ui/core/Radio";
@@ -14,6 +14,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+
+import hijaaiyyah from "../../data/hijaaiyyah";
 
 
 // import hijaaiyyah from "../../data/hijaaiyyah";
@@ -46,28 +48,52 @@ const useStyles = makeStyles({
   },
 });
 
-// const answerStatusEnum = {
-//   CORRECT: "✅",
-//   WRONG: "❌",
-//   EMPTY: "⚪",
-// };
+const answerStatusEnum = {
+  CORRECT: "✅",
+  WRONG: "❌",
+  EMPTY: "⚪",
+};
 
-// const LocalStatusEnum = {
-//   ONGOING: "ONGOING",
-//   FINISHED: "FINISHED",
-// };
+const LocalStatusEnum = {
+  ONGOING: "ONGOING",
+  FINISHED: "FINISHED",
+};
 
 
 const Game = (props) => {
 
-  const handleChooseAnswer = () =>  {
+  const answerMap = new Map(hijaaiyyah);
 
+  const handleChooseAnswer = (questionNum, chosenAnswer) =>  {
+    const question = props.quizzes[questionNum].question;
+    const correctAnswer = answerMap.get(question)
+    const answersState = [
+      ...gameState.answers.slice(0, questionNum),
+      {
+        chosenOption: chosenAnswer,
+        status: chosenAnswer === '' ? answerStatusEnum.EMPTY:
+                chosenAnswer === correctAnswer? answerStatusEnum.CORRECT:
+                answerStatusEnum.WRONG,
+      },
+      ...gameState.answers.slice(questionNum+1, gameState.answers.length),
+    ]
+    setGameState({
+      status: answersState.some(q => q.status !== answerStatusEnum.CORRECT) ? LocalStatusEnum.ONGOING : LocalStatusEnum.FINISHED,
+      answers: answersState,
+    })
   }
 
   const classes = useStyles();
 
-  // const [status, setStatus] = useState(LocalStatusEnum.ONGOING);
-  // const [showErrorSnackbar, setShowErrorSnackbar] = useState(false);
+  const [gameState, setGameState] = useState({
+    status: LocalStatusEnum.ONGOING,
+    answers: props.quizzes.map(
+      () => ({
+        status: answerStatusEnum.EMPTY,
+        chosenOption: '',
+      })
+    )
+  });
 
   useEffect(() => {}, []);
 
@@ -86,12 +112,13 @@ const Game = (props) => {
             props.quizzes.map((row, rowIdx) => (
               <StyledTableRow key={rowIdx}>
                 <StyledTableCell align="center">{row.question}</StyledTableCell>
-                <StyledTableCell align="center">Biawak</StyledTableCell>
+                <StyledTableCell align="center">{gameState.answers[rowIdx].status}</StyledTableCell>
                 <StyledTableCell align="center">
                   <RadioGroup
                     aria-label="firstTurn"
                     name="firstTurn"
-                    onChange={e => handleChooseAnswer()}
+                    onChange={e => handleChooseAnswer(rowIdx, e.target.value)}
+                    value={gameState.answers[rowIdx].chosenOption}
                   >
                     {
                       row.options.map(
